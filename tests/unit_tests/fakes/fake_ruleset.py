@@ -14,7 +14,7 @@ def fake_passing_ruleset_base_bucket():
     ruleset.add_rule(r_one)
     ruleset.add_rule(r_two)
     ruleset.add_rule(r_tre)
-    ruleset.define_bucket_transition(EBucket.eBase, EBucket.ePrime)
+    ruleset.set_bucket(EBucket.eBase)
     return ruleset
 
 
@@ -29,5 +29,5 @@ def fake_failing_ruleset_base_bucket_one_of_three_fail():
     ruleset.add_rule(r_one)
     ruleset.add_rule(r_two)
     ruleset.add_rule(r_tre)
-    ruleset.define_bucket_transition(EBucket.eBase, EBucket.ePrime)
+    ruleset.set_bucket(EBucket.eBase)
     return ruleset

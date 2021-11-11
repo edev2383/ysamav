@@ -33,7 +33,7 @@ def test_setup_can_recieve_rulesets():
 def test_setup_can_retrieve_rulesets_by_bucket_value():
     setup = Setup(FakeTicker())
     ruleset = RuleSet()
-    ruleset.define_bucket_transition(EBucket.eBase, EBucket.ePrime)
+    ruleset.set_bucket(EBucket.eBase)
     setup.add_ruleset(ruleset)
     found_ruleset = setup.find_ruleset(EBucket.eBase)
     assert ruleset == found_ruleset
