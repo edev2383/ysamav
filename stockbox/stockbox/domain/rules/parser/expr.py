@@ -58,6 +58,13 @@ class DomainBinary(Expr):
         ...
 
 
+class DomainExpression(Expr):
+    pass
+
+    def accept(self, visitor: ExprVisitor):
+        return super().accept(visitor)
+
+
 class Domain(Expr):
     column: object
     category: TokenCategory

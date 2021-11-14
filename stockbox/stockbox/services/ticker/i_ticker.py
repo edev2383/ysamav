@@ -1,4 +1,5 @@
 from stockbox.stockbox.common.helpers.enums import (
+    EBucket,
     ETickerRequestFrequency,
     ETickerRequestRange,
 )
@@ -35,12 +36,11 @@ class ITicker:
     _monthly: YahooFinanceHistoryPayload = None
     # a container class for all created indicators
     _indicators: IndicatorLibrary
+    _default_range: ETickerRequestRange = ETickerRequestRange.eOneYear
 
-    def __init__(
-        self, symbol: str, range: ETickerRequestRange = ETickerRequestRange.eOneYear
-    ):
+    def __init__(self, symbol: str, range: ETickerRequestRange = None):
         self.symbol = symbol
-        self.range = DateRange(range)
+        self.range = self._set_range(range)
         self._indicators = IndicatorLibrary(self)
 
     def current(self):
@@ -145,3 +145,8 @@ class ITicker:
             return self.weekly()
         if frequency is ETickerRequestFrequency.eMonthly:
             return self.monthly()
+
+    def _set_range(self, range: ETickerRequestRange = None):
+        if range == None:
+            range = self._default_range
+        return DateRange(range)

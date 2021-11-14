@@ -21,7 +21,9 @@ class RuleSet:
     action: IAction
     bucket: EBucket
 
-    def __init__(self, ticker: Ticker = None, action: IAction = None):
+    def __init__(
+        self, ticker: Ticker = None, action: IAction = None, bucket: EBucket = None
+    ):
         self.rules = RuleList()
         self.results = ResultList()
         self.ticker = ticker
@@ -37,6 +39,9 @@ class RuleSet:
                 rule.add_ticker(self.ticker)
             self.results.append(rule.process())
         return self.results
+
+    def has_ticker(self):
+        return self.ticker is not None
 
     def get_action(self) -> IAction:
         return self.action

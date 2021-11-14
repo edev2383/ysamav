@@ -6,27 +6,46 @@ from ..expr import Expr, Binary, Literal, Unary, Grouping, Domain, DomainBinary
 
 class Evaluator:
     ticker: Ticker
+    values: list
 
     def __init__(self, ticker: Ticker = None):
         self.ticker = ticker
+        self.values = []
 
     def evaluate(self, expr: Expr):
         if isinstance(expr, Binary):
-            return self._eval_binary(expr)
+            binary = self._eval_binary(expr)
+            self.values.append(binary)
+            return binary
         if isinstance(expr, Literal):
-            return self._eval_literal(expr)
+            literal = self._eval_literal(expr)
+            self.values.append(literal)
+            return literal
         if isinstance(expr, Unary):
-            return self._eval_unary(expr)
+            unary = self._eval_unary(expr)
+            self.values.append(unary)
+            return unary
         if isinstance(expr, Grouping):
-            return self._eval_grouping(expr)
+            grouping = self._eval_grouping(expr)
+            self.values.append(grouping)
+            return grouping
         if isinstance(expr, Domain):
-            return self._eval_domain(expr)
+            domain = self._eval_domain(expr)
+            self.values.append(domain)
+            return domain
         if isinstance(expr, DomainBinary):
-            return self._eval_domain_binary(expr)
+            domain_binary = self._eval_domain_binary(expr)
+            self.values.append(domain_binary)
+            return domain_binary
 
     def _eval_binary(self, binary: Binary):
         left = self.evaluate(binary.left)
         right = self.evaluate(binary.right)
+        # print("========================================================")
+        # print(f"left: {left}")
+        # print(f"right: {right}")
+        # print(f"values: {self.values}")
+        # print("========================================================")
         if binary.operator.type == TokenType.DOMAIN_INDEX:
             return DomainEvaluator(self.ticker).evaluate(binary)
         if binary.operator.type == TokenType.MINUS:

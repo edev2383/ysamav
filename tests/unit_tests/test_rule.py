@@ -8,6 +8,17 @@ from . import Token, TokenType
 from .fakes.fake_ticker import FakeTicker
 
 
+def test_rule_compound_domain_expression():
+    src = "Volume > One Day Ago Volume * 0.85"
+    ticker = FakeTicker()
+    rule = Rule(src)
+    rule.add_ticker(ticker)
+    assert isinstance(rule.expression, Binary)
+    value = rule.process()
+    # Rule.process returns a Result obj
+    return value.status == EResult.eSuccess
+
+
 def test_rule_will_add_missing_indicator():
     src = "2 days ago Close < SMA(2)"
     ticker = FakeTicker()

@@ -10,6 +10,27 @@ def test_ruleset_can_be_created():
     assert rs is not None
 
 
+def test_ruleset_expressions_handle_volume_values_01():
+    t = FakeTicker()
+    rs = RuleSet(t)
+    assert rs is not None
+    # 2DA Volume = 12000, Volume = 10000
+    r_one = Rule("2 days ago Volume > Volume")
+    # Volume = 10000, 1DA Volume = 11000
+    r_two = Rule("Volume > One Day Ago Volume * 0.85")
+    rs.add_rule(r_one)
+    rs.add_rule(r_two)
+    assert r_one.process().status == EResult.eSuccess
+    assert r_two.process().status == EResult.eSuccess
+    output = rs.process()
+    # print(output)
+    # for r in output:
+    #     print(f"r.values: {r.output.values}")
+    # RuleSet.process returns a ResultList
+    assert output.has_errors() == False
+    assert output.error_count() == 0
+
+
 def test_ruleset_outputs_expected_result_01():
     t = FakeTicker()
     rs = RuleSet(t)

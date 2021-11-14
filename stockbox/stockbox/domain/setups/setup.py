@@ -15,8 +15,14 @@ class Setup:
         self.rulesets = RuleSetList()
 
     def process(self, bucket: EBucket) -> ResultList:
-        result_set = self.find_ruleset(bucket)
-        return result_set.process()
+        ruleset = self.find_ruleset(bucket)
+        if ruleset.has_ticker() == False:
+            """Add the ticker if the RuleSet is missing the property"""
+            ruleset.add_ticker(self.ticker)
+        return ruleset.process()
+
+    def has_ticker(self):
+        return self.ticker != None
 
     def add_ticker(self, ticker: Ticker):
         self.ticker = ticker

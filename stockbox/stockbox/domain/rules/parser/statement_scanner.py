@@ -6,6 +6,10 @@ from .token_type import TokenType
 
 
 class StatementScanner(IScanner):
+    """Scanner takes a source strings and turns it into tokens matching
+    TokenType enum. Those tokens are passed to the Parser which further
+    defines them into Expressions for evaluation"""
+
     source: str = ""
     start: int = 0
     current: int = 0
@@ -27,10 +31,6 @@ class StatementScanner(IScanner):
     def scan_token(self):
         c = self.advance()
         self.switch.switch(c)
-        # tkn = TokenType(c)
-        # if tkn:
-        #     self.add_simple_token(tkn)
-        # else:
 
     def add_simple_token(self, type: TokenType):
         txt = self.source[self.start : self.current]

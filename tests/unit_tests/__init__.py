@@ -35,15 +35,34 @@ from stockbox.stockbox.domain.rules.parser.statement_scanner import StatementSca
 from stockbox.stockbox.domain.rules.parser.token import Token
 from stockbox.stockbox.domain.rules.parser.token_type import TokenType
 from stockbox.stockbox.domain.rules.parser.parser import Parser
-from stockbox.stockbox.domain.rules.parser.interpreter import Interpreter
 from stockbox.stockbox.domain.rules.parser.expr import (
     Unary,
     Binary,
     Grouping,
     Literal,
     Expr,
+    DomainBinary,
+    Domain,
 )
 from stockbox.stockbox.domain.rules.rule import Rule
 from stockbox.stockbox.domain.rules.ruleset import RuleSet
 from stockbox.stockbox.domain.setups.setup import Setup
 from stockbox.stockbox.common.helpers.enums import EBucket
+
+from stockbox.stockbox.domain.positions.i_position import IPosition
+from stockbox.stockbox.domain.positions.position_model import PositionModel
+from stockbox.stockbox.domain.rules.parser.evaluators.evaluator import Evaluator
+from stockbox.stockbox.domain.rules.parser.evaluators.domain_evaluator import (
+    DomainEvaluator,
+)
+
+from stockbox.stockbox.domain.buckets.bucket import (
+    Bucket,
+    BaseBucket,
+    BreakDownBucket,
+    SoldBucket,
+    PrimeBucket,
+    RemovedBucket,
+    PositionBreakDownBucket,
+    ActivePositionBucket,
+)

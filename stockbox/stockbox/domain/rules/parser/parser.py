@@ -9,9 +9,14 @@ from .token_type import TokenType as TType
 class Parser:
     tokens: TokenList
     current: int = 0
+    steps: list
 
     def __init__(self, tokens: TokenList):
         self.tokens = tokens
+        self.steps = []
+
+    def _log(self, msg):
+        self.steps.append(msg)
 
     # ==================================================================
     # Public interface
@@ -31,6 +36,7 @@ class Parser:
     def equality(self) -> Expr:
         expr = self.comparison()
         while self.match(TType.BANG_EQ, TType.EQEQ):
+            self._log("equality")
             operator = self.previous()
             right = self.comparison()
             expr = Binary(expr, operator, right)
@@ -39,6 +45,7 @@ class Parser:
     def comparison(self) -> Expr:
         expr = self.term()
         while self.match(TType.GT, TType.GT_OR_EQ, TType.LT, TType.LT_OR_EQ):
+            self._log("comparison")
             operator = self.previous()
             right = self.term()
             expr = Binary(expr, operator, right)
@@ -69,11 +76,10 @@ class Parser:
 
     def term(self) -> Expr:
         expr = self.factor()
-        if self.match(TType.DOMAIN_INDEX):
-            operator = self.previous()
-            right = self.factor()
-            expr = DomainBinary(expr, operator, right)
+
         while self.match(TType.MINUS, TType.PLUS):
+            self._log("term minus/plus")
+
             operator = self.previous()
             right = self.factor()
             expr = Binary(expr, operator, right)
@@ -81,20 +87,32 @@ class Parser:
 
     def factor(self) -> Expr:
         expr = self.unary()
-        while self.match(TType.SLASH, TType.STAR):
+        while self.match(TType.DOMAIN_INDEX, TType.SLASH, TType.STAR):
+            self._log("factor")
             operator = self.previous()
-            right = self.unary()
-            expr = Binary(expr, operator, right)
+            if operator.type == TType.DOMAIN_INDEX:
+                right = self.unary()
+                expr = DomainBinary(expr, operator, right)
+            else:
+                right = self.unary()
+                expr = Binary(expr, operator, right)
+        # while self.match(TType.DOMAIN_INDEX):
+        #     self._log("term domain_index")
+        #     operator = self.previous()
+        #     right = self.factor()
+        #     expr = DomainBinary(expr, operator, right)
         return expr
 
     def unary(self) -> Expr:
         if self.match(TType.DAILY, TType.WEEKLY, TType.MONTHLY):
+            self._log("unary domain interval")
             interval = self.previous()
             column = self.peek().lexeme
             tv = TVFactory.get(self.peek().type)
             self.advance()
             return Domain(column=column, interval=interval, category=tv.category)
         if self.match(TType.BANG, TType.MINUS):
+            self._log("unary bang/minus")
             operator = self.previous()
             right = self.unary()
             return Unary(operator, right)
@@ -102,23 +120,31 @@ class Parser:
 
     def primary(self) -> Expr:
         if self.is_domain_token():
+            self._log("domain_token")
             tkn = self.previous()
             return Domain(column=tkn.lexeme, category=TokenCategory.DOMAIN_KEYWORD)
         if self.is_indicator_token():
+            self._log("indicator token")
             tkn = self.previous()
             return Domain(column=tkn.lexeme, category=TokenCategory.INDICATOR)
         if self.is_timeframe_number():
+            self._log("timeframe number")
             num = self.previous()
             return Literal(self.map_num(num.lexeme))
         if self.match(TType.FALSE):
+            self._log("literal bool false")
             return Literal(False)
         if self.match(TType.TRUE):
+            self._log("literal bool true")
             return Literal(True)
         if self.match(TType.NIL):
+            self._log("literal nil")
             return Literal(None)
         if self.match(TType.NUMBER, TType.STRING):
+            self._log("litearl num string")
             return Literal(self.previous().lexeme, self.previous())
         if self.match(TType.LEFT_PAREN):
+            self._log("grouping")
             expr = self.expression()
             self.consume(TType.RIGHT_PAREN, "Expect ')' after expression.")
             return Grouping(expr)

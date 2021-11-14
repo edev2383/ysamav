@@ -1,14 +1,13 @@
-from stockbox.stockbox.domain.rules.parser.evaluators.evaluator import Evaluator
-from stockbox.stockbox.domain.rules.parser.expr import Domain, DomainBinary
-from stockbox.stockbox.domain.rules.parser.token_type import TokenType
-from . import Interpreter
+from . import Evaluator
+from . import Domain, DomainBinary
+from . import TokenType
 from . import StatementScanner
 from . import Literal, Unary, Binary, Grouping
 from . import Token
 from . import Parser
 
 
-def test_interpreter_truthy_method():
+def test_evaluator_truthy_method():
     evaluator = Evaluator()
     str_01 = "a"
     str_02 = ""
@@ -24,25 +23,25 @@ def test_interpreter_truthy_method():
     assert evaluator._is_truthy(obj_01) == True
 
 
-def test_interpreter_visit_unary_01():
+def test_evaluator_visit_unary_01():
     tkn = Token(TokenType.BANG, "!", None, 0)
     literal = Literal(True)
     unary = Unary(tkn, literal)
-    interpreter = Interpreter()
-    evaluated = interpreter.visit(unary)
-    assert evaluated == False
+    evaluator = Evaluator(None)
+    value = evaluator.evaluate(unary)
+    assert value == False
 
 
-def test_interpreter_visit_unary_02():
+def test_evaluator_visit_unary_02():
     tkn = Token(TokenType.MINUS, "-", None, 0)
     literal = Literal(20)
     unary = Unary(tkn, literal)
-    interpreter = Interpreter()
-    evaluated = interpreter.visit(unary)
-    assert evaluated == -20
+    evaluator = Evaluator(None)
+    value = evaluator.evaluate(unary)
+    assert value == -20
 
 
-def test_interpreter_visit_unary_from_scanner_scr_alpha():
+def test_evaluator_visit_unary_from_scanner_scr_alpha():
     src = StatementScanner("two days ago Close")
     tkns = src.scan_tokens()
     parser = Parser(tkns)
@@ -58,7 +57,7 @@ def test_interpreter_visit_unary_from_scanner_scr_alpha():
     assert expr.right.interval.type == TokenType.DAILY
 
 
-def test_interpreter_visit_unary_from_scanner_scr_digit_01():
+def test_evaluator_visit_unary_from_scanner_scr_digit_01():
     src = StatementScanner("2 days ago Close")
     tkns = src.scan_tokens()
     parser = Parser(tkns)
@@ -74,7 +73,7 @@ def test_interpreter_visit_unary_from_scanner_scr_digit_01():
     assert expr.right.interval.type == TokenType.DAILY
 
 
-def test_interpreter_visit_unary_from_scanner_scr_digit_02():
+def test_evaluator_visit_unary_from_scanner_scr_digit_02():
     src = StatementScanner("2 weeks ago Close")
     tkns = src.scan_tokens()
     parser = Parser(tkns)
@@ -90,7 +89,7 @@ def test_interpreter_visit_unary_from_scanner_scr_digit_02():
     assert expr.right.interval.type == TokenType.WEEKLY
 
 
-def test_interpreter_visit_unary_from_scanner_scr_digit_03():
+def test_evaluator_visit_unary_from_scanner_scr_digit_03():
     src = StatementScanner("2 months ago Close")
     tkns = src.scan_tokens()
     parser = Parser(tkns)
@@ -106,67 +105,78 @@ def test_interpreter_visit_unary_from_scanner_scr_digit_03():
     assert expr.right.interval.type == TokenType.MONTHLY
 
 
-def test_interpreter_math_operations_01():
+def test_evaluator_math_operations_01():
     src = "2 * 3 - 1 / 2"
     scanner = StatementScanner(src)
     tkns = scanner.scan_tokens()
     parser = Parser(tkns)
     expr = parser.parse()
-    interpreter = Interpreter()
-    value = interpreter.visit(expr)
+    evaluator = Evaluator(None)
+    value = evaluator.evaluate(expr)
     assert value == 5.5
 
 
-def test_interpreter_math_operations_02():
+def test_evaluator_math_operations_02():
     src = "2 + 3 - 1 + 1"
     scanner = StatementScanner(src)
     tkns = scanner.scan_tokens()
     parser = Parser(tkns)
     expr = parser.parse()
-    interpreter = Interpreter()
-    value = interpreter.visit(expr)
+    evaluator = Evaluator(None)
+    value = evaluator.evaluate(expr)
     assert value == 5.0
 
 
-def test_interpreter_comparison_operations_01():
+def test_evaluator_comparison_operations_01():
     src = "6 == 6"
     scanner = StatementScanner(src)
     tkns = scanner.scan_tokens()
     parser = Parser(tkns)
     expr = parser.parse()
-    interpreter = Interpreter()
-    value = interpreter.visit(expr)
+    evaluator = Evaluator(None)
+    value = evaluator.evaluate(expr)
     assert value == True
 
 
-def test_interpreter_comparison_operations_02():
+def test_evaluator_comparison_operations_02():
     src = "5 < 7"
     scanner = StatementScanner(src)
     tkns = scanner.scan_tokens()
     parser = Parser(tkns)
     expr = parser.parse()
-    interpreter = Interpreter()
-    value = interpreter.visit(expr)
+    evaluator = Evaluator(None)
+    value = evaluator.evaluate(expr)
     assert value == True
 
 
-def test_interpreter_comparison_operations_03():
+def test_evaluator_comparison_operations_03():
     src = "9 >= 7"
     scanner = StatementScanner(src)
     tkns = scanner.scan_tokens()
     parser = Parser(tkns)
     expr = parser.parse()
-    interpreter = Interpreter()
-    value = interpreter.visit(expr)
+    evaluator = Evaluator(None)
+    value = evaluator.evaluate(expr)
     assert value == True
 
 
-def test_interpreter_comparison_operations_04():
+def test_evaluator_comparison_operations_04():
     src = "1 != 2"
     scanner = StatementScanner(src)
     tkns = scanner.scan_tokens()
     parser = Parser(tkns)
     expr = parser.parse()
-    interpreter = Interpreter()
-    value = interpreter.visit(expr)
+    evaluator = Evaluator(None)
+    value = evaluator.evaluate(expr)
     assert value == True
+
+
+def test_evaluator_comparison_operations_05():
+    src = "1 == 2"
+    scanner = StatementScanner(src)
+    tkns = scanner.scan_tokens()
+    parser = Parser(tkns)
+    expr = parser.parse()
+    evaluator = Evaluator(None)
+    value = evaluator.evaluate(expr)
+    assert value == False
