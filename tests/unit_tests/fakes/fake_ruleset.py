@@ -1,4 +1,4 @@
-from stockbox.stockbox.services.ticker.ticker import Ticker
+from stockbox.stockbox.domain.ticker.ticker import Ticker
 from .fake_ticker import FakeTicker
 from .. import RuleSet, Rule, EBucket
 

@@ -16,6 +16,7 @@ def test_evaluator_truthy_method():
     none_01 = None
     obj_01 = StatementScanner("")
     assert evaluator._is_truthy(str_01) == True
+    # EMPTY STRINGS EVALUATE TO FALSE FFSss
     assert evaluator._is_truthy(str_02) == False
     assert evaluator._is_truthy(bool_01) == True
     assert evaluator._is_truthy(bool_02) == False

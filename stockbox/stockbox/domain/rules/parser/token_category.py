@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class TokenCategory(Enum):
+    """ This is some additional metadata wrapped around the token"""
     KEYWORD = "keyword"
     OPERATOR = "operator"
     COMPARISON = "comparison"

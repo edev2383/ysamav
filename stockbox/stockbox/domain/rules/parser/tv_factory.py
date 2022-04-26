@@ -4,6 +4,11 @@ from .token_type import TokenType as TType
 
 tv_map = {}
 
+"""We needed to assign more value to the tokens, specifically we wanted to wrap
+a category value around them, to relate types of tokens together. tv_map is then
+called statically by TVFactory.get(token) to get the category of a token type
+passed"""
+
 
 def add_tv(type: TType, category: TCat):
     tv_map[type] = TokenValue(type.value, category)

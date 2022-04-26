@@ -2,6 +2,9 @@ from .token_type import TokenType
 
 
 class Token:
+    """As the parser recognizes collections of characters as cohesive units, 
+    they become Tokens. Using these tokens, we can then assign values that can
+    be evaluated for our rules"""
     type: TokenType
     lexeme: str
     literal: object
@@ -15,22 +18,3 @@ class Token:
 
     def to_string(self):
         return f"{self.type} {self.lexeme} {self.literal} char: {self.char}"
-
-
-# class Token {
-#   final TokenType type;
-#   final String lexeme;
-#   final Object literal;
-#   final int line;
-
-#   Token(TokenType type, String lexeme, Object literal, int line) {
-#     this.type = type;
-#     this.lexeme = lexeme;
-#     this.literal = literal;
-#     this.line = line;
-#   }
-
-#   public String toString() {
-#     return type + " " + lexeme + " " + literal;
-#   }
-# }

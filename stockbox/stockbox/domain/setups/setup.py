@@ -2,7 +2,7 @@ from stockbox.stockbox.common.helpers.enums import EBucket
 from stockbox.stockbox.domain.actions.i_action import IAction
 from stockbox.stockbox.domain.rules.ruleset import RuleSet
 from stockbox.stockbox.domain.rules.ruleset_list import RuleSetList
-from stockbox.stockbox.services.ticker.ticker import Ticker
+from stockbox.stockbox.domain.ticker.ticker import Ticker
 from stockbox.stockbox.common.results.result import ResultList
 
 

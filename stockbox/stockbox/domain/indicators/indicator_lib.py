@@ -1,11 +1,12 @@
 from collections import namedtuple
-import collections
 from stockbox.stockbox.common.helpers.enums import ETickerRequestFrequency
-from stockbox.stockbox.services.indicators.indicator_factory import IndicatorFactory
+from stockbox.stockbox.domain.indicators.indicator_factory import IndicatorFactory
 from .indicator_collection import IndicatorCollection
 
 
 class IndicatorLibrary:
+    """ The IndicatorLibray is a contained repository of indicators within the 
+    Ticker class."""
     daily: IndicatorCollection()
     weekly: IndicatorCollection()
     monthly: IndicatorCollection()

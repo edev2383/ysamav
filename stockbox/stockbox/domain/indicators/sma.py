@@ -1,4 +1,4 @@
-from stockbox.stockbox.services.indicators.abs_indicator import AbstractIndicator
+from stockbox.stockbox.domain.indicators.abs_indicator import AbstractIndicator
 
 
 class SimpleMovingAverage(AbstractIndicator):

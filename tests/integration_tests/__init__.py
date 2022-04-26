@@ -25,9 +25,9 @@ from stockbox.stockbox.common.helpers.enums import (
     ETickerRequestRange,
     ETickerRequestFrequency,
 )
-from stockbox.stockbox.services.ticker.ticker import Ticker
-from stockbox.stockbox.services.indicators.indicator_factory import IndicatorFactory
-from stockbox.stockbox.services.indicators.sma import SimpleMovingAverage
+from stockbox.stockbox.domain.ticker.ticker import Ticker
+from stockbox.stockbox.domain.indicators.indicator_factory import IndicatorFactory
+from stockbox.stockbox.domain.indicators.sma import SimpleMovingAverage
 
 from stockbox.stockbox.services.scraper.providers.finviz_scraper_provider import (
     FinVizScraperProvider,
@@ -42,8 +42,8 @@ from stockbox.stockbox.services.scraper.providers.abs_scraper_provider import (
 from stockbox.stockbox.services.scraper.payload.i_scraper_payload import (
     IScraperPayload,
 )
-from stockbox.stockbox.services.ticker.ticker import Ticker
-from stockbox.stockbox.services.ticker.i_ticker import ITicker
+from stockbox.stockbox.domain.ticker.ticker import Ticker
+from stockbox.stockbox.domain.ticker.i_ticker import ITicker
 
 from stockbox.stockbox.common.helpers.date_range import (
     DateRange,

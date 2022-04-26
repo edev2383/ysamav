@@ -1,33 +1,34 @@
 from stockbox.stockbox.common.helpers.enums import (
-    EBucket,
     ETickerRequestFrequency,
     ETickerRequestRange,
 )
-from stockbox.stockbox.services.indicators.abs_indicator import AbstractIndicator
-from stockbox.stockbox.services.indicators.indicator_factory import IndicatorFactory
+from stockbox.stockbox.domain.indicators.abs_indicator import AbstractIndicator
 from stockbox.stockbox.services.repository.yf_current_repository import (
     YahooFinanceCurrentRepository,
 )
 from stockbox.stockbox.services.repository.yf_history_repository import (
     YahooFinanceHistoryRepository,
 )
-from stockbox.stockbox.services.scraper.payload.i_scraper_payload import IScraperPayload
 from stockbox.stockbox.services.scraper.providers.yf_current_provider_in_params import (
     YahooFinanceCurrentProviderInParams,
 )
 from stockbox.stockbox.services.scraper.providers.yf_history_provider_in_params import (
     YahooFinanceHistoryProviderInParams,
 )
-from stockbox.stockbox.services.ticker.indicator_collection import IndicatorCollection
-from stockbox.stockbox.services.ticker.indicator_lib import IndicatorLibrary
-from ..scraper.payload.yf_history_payload import YahooFinanceHistoryPayload
-from ..scraper.payload.yf_current_payload import YahooFinanceCurrentPayload
+
+from ..indicators.indicator_lib import IndicatorLibrary
+from ..indicators.indicator_collection import IndicatorCollection
+from stockbox.stockbox.services.scraper.payload.yf_history_payload import (
+    YahooFinanceHistoryPayload,
+)
+from stockbox.stockbox.services.scraper.payload.yf_current_payload import (
+    YahooFinanceCurrentPayload,
+)
 from stockbox.stockbox.common.helpers.date_range import DateRange
 import pandas as pd
 
 
 class ITicker:
-    symbol: str
     range: DateRange
     # holders for scraped content
     _current: YahooFinanceCurrentPayload = None

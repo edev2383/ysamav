@@ -1,7 +1,7 @@
 from stockbox.stockbox.common.helpers.enums import ETickerRequestFrequency, EResult
 from stockbox.stockbox.domain.rules.parser.evaluators.evaluator import Evaluator
 from stockbox.stockbox.domain.rules.parser.expr import Domain, DomainBinary, Unary
-from stockbox.stockbox.services.ticker.ticker import Ticker
+from stockbox.stockbox.domain.ticker.ticker import Ticker
 from . import Binary, Literal
 from . import Rule
 from . import Token, TokenType
@@ -44,8 +44,10 @@ def test_rule_evaluation_01():
     eval = Evaluator(FakeTicker())
     assert isinstance(rule.expression, Binary)
     left = eval.evaluate(rule.expression.left)
+    print(f"left: {left}")
     assert left == 10
     right = eval.evaluate(rule.expression.right)
+    print(f"right: {right}")
     assert right == 7
     value = rule.process()
     # Rule.process returns a Result obj

@@ -1,6 +1,6 @@
 from .domain_evaluator import DomainEvaluator
 from ...parser.token_type import TokenType
-from stockbox.stockbox.services.ticker.ticker import Ticker
+from stockbox.stockbox.domain.ticker.ticker import Ticker
 from ..expr import Expr, Binary, Literal, Unary, Grouping, Domain, DomainBinary
 
 
@@ -10,6 +10,7 @@ class Evaluator:
 
     def __init__(self, ticker: Ticker = None):
         self.ticker = ticker
+        # collect values as they are evaluated for debugging
         self.values = []
 
     def evaluate(self, expr: Expr):

@@ -13,6 +13,7 @@ class Parser:
 
     def __init__(self, tokens: TokenList):
         self.tokens = tokens
+        # for debugging
         self.steps = []
 
     def _log(self, msg):
@@ -96,11 +97,6 @@ class Parser:
             else:
                 right = self.unary()
                 expr = Binary(expr, operator, right)
-        # while self.match(TType.DOMAIN_INDEX):
-        #     self._log("term domain_index")
-        #     operator = self.previous()
-        #     right = self.factor()
-        #     expr = DomainBinary(expr, operator, right)
         return expr
 
     def unary(self) -> Expr:

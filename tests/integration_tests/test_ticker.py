@@ -1,7 +1,10 @@
-from stockbox.stockbox.services.scraper.providers.yf_current_provider_in_params import YahooFinanceCurrentProviderInParams
+from stockbox.stockbox.services.scraper.providers.yf_current_provider_in_params import (
+    YahooFinanceCurrentProviderInParams,
+)
 from . import Ticker
 from . import YahooFinanceCurrentPayload
 import pandas as pd
+
 
 def test_ticker_current_return_value_is_correct():
     output = Ticker("TSLA").current()
@@ -20,6 +23,7 @@ def test_ticker_current_return_value_is_correct():
     assert output.low <= output.close or output.low <= output.open
     assert output.high >= output.close or output.high >= output.open
 
+
 def test_ticker_history_daily_return_value_is_correct():
     output = Ticker("MSFT").daily()
     # payload has a value
@@ -32,6 +36,7 @@ def test_ticker_history_daily_return_value_is_correct():
     assert len(output.dataframe.index) >= 250
     assert len(output.dataframe.index) <= 254
     # print(output.dataframe.head())
+
 
 def test_ticker_history_weekly_return_value_is_correct():
     output = Ticker("MSFT").weekly()
@@ -56,5 +61,6 @@ def test_ticker_history_monthly_return_value_is_correct():
     # payload is expected length (eOneYear is default)
     assert output.dataframe.empty != True
     assert len(output.dataframe.index) >= 12
-    assert len(output.dataframe.index) <= 13
+    assert len(output.dataframe.index) <= 14
+
     # print(output.dataframe.head())

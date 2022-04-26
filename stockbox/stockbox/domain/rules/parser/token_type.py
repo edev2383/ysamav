@@ -2,6 +2,9 @@ from enum import Enum
 
 
 class TokenType(Enum):
+    """Comprehensive list of tokens the Parser can recognize. Assigning the 
+    string as the enum value helped to streamline the parser process and helped
+    to eliminate a lot of if/else/switch in the parser"""
     # ==================================================================
     # Generic tokens
     # ==================================================================

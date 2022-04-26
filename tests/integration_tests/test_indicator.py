@@ -1,7 +1,7 @@
 from stockbox.stockbox.common.helpers.enums import ETickerRequestFrequency
-from stockbox.stockbox.services.indicators.indicator_factory import IndicatorFactory
-from stockbox.stockbox.services.indicators.sma import SimpleMovingAverage
-from stockbox.stockbox.services.ticker.indicator_lib import IndicatorLibrary
+from stockbox.stockbox.domain.indicators.indicator_factory import IndicatorFactory
+from stockbox.stockbox.domain.indicators.sma import SimpleMovingAverage
+from stockbox.stockbox.domain.indicators.indicator_lib import IndicatorLibrary
 from . import Ticker
 
 

@@ -3,7 +3,7 @@ from stockbox.stockbox.domain.rules.parser.abs_expr import AbstractExpr
 from stockbox.stockbox.domain.rules.parser.evaluators.evaluator import Evaluator
 from stockbox.stockbox.domain.rules.rule_result_output import RuleResultOutput
 from stockbox.stockbox.domain.rules.rule_statement import RuleStatement
-from stockbox.stockbox.services.ticker.ticker import Ticker
+from stockbox.stockbox.domain.ticker.ticker import Ticker
 from stockbox.stockbox.common.results.result import Result
 
 
@@ -15,11 +15,9 @@ class Rule:
 
     expression: AbstractExpr
     ticker: Ticker
-    statement: str
 
     def __init__(self, statement: str):
         rule = RuleStatement(statement)
-        self.statement = statement
         self.expression = rule.expression
 
     def process(self) -> Result:

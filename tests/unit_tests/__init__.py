@@ -11,8 +11,8 @@ from stockbox.stockbox.services.scraper.providers.abs_scraper_provider import (
 from stockbox.stockbox.services.scraper.payload.i_scraper_payload import (
     IScraperPayload,
 )
-from stockbox.stockbox.services.ticker.ticker import Ticker
-from stockbox.stockbox.services.ticker.i_ticker import ITicker
+from stockbox.stockbox.domain.ticker.ticker import Ticker
+from stockbox.stockbox.domain.ticker.i_ticker import ITicker
 
 from stockbox.stockbox.common.helpers.date_range import (
     DateRange,
@@ -55,6 +55,9 @@ from stockbox.stockbox.domain.rules.parser.evaluators.evaluator import Evaluator
 from stockbox.stockbox.domain.rules.parser.evaluators.domain_evaluator import (
     DomainEvaluator,
 )
+
+from stockbox.stockbox.domain.buckets.bucket_list import BucketList
+from stockbox.stockbox.domain.buckets.bucket_ticker_profile import BucketTickerProfile
 
 from stockbox.stockbox.domain.buckets.bucket import (
     Bucket,

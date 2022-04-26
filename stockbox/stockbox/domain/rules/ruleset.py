@@ -1,6 +1,6 @@
 from stockbox.stockbox.common.helpers.enums import EBucket
 from stockbox.stockbox.domain.actions.i_action import IAction
-from stockbox.stockbox.services.ticker.ticker import Ticker
+from stockbox.stockbox.domain.ticker.ticker import Ticker
 from stockbox.stockbox.common.results.result import ResultList
 from .rule_list import RuleList
 from .rule import Rule

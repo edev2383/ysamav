@@ -1,6 +1,6 @@
 from stockbox.stockbox.common.helpers.enums import EBucket
 from stockbox.stockbox.domain.setups.setup import Setup
-from stockbox.stockbox.services.ticker.ticker import Ticker
+from stockbox.stockbox.domain.ticker.ticker import Ticker
 
 
 class PositionModel:

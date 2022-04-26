@@ -8,4 +8,5 @@ class RuleResultOutput:
     def __init__(self, expression: AbstractExpr, values: list):
         self.expression  = expression
         self.values = values
-        self.resolution = values[-1]
+        if len(values) != 0:
+            self.resolution = values[-1]

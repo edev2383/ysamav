@@ -20,11 +20,11 @@ class BucketList(Ulist):
     def _add_stock_to(self, symbol: str, bucket: EBucket):
         found_bucket = self.get(bucket)
         if found_bucket == None:
-            raise ValueError("Bucket not found")
+            raise ValueError(f"Bucket not found: {bucket}")
         found_bucket.append(symbol)
 
     def _remove_stock_from(self, symbol: str, bucket: EBucket):
         found_bucket = self.get(bucket)
         if found_bucket == None:
-            raise ValueError("Bucket not found")
+            raise ValueError(f"Bucket not found: {bucket}")
         found_bucket.remove(symbol)

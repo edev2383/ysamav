@@ -4,7 +4,7 @@ from stockbox.stockbox.domain.setups.setup_list import SetupList
 from stockbox.stockbox.domain.positions.position_model import PositionModel
 from stockbox.stockbox.domain.positions.i_position import IPosition
 from stockbox.stockbox.domain.actions.action_handler import ActionHandler
-from stockbox.stockbox.services.ticker.ticker import Ticker
+from stockbox.stockbox.domain.ticker.ticker import Ticker
 
 
 class DomainController:
@@ -29,14 +29,14 @@ class DomainController:
             # allow us to make some decisions as the stocks move from
             # bucket to bucket. i.e., a stock moves from one bucket to
             # another, but the second bucket setup ALSO triggers. Should
-            # it actually react?
-            for stock in bucket:
-                for setup in self.setups:
-                    model = PositionModel(Ticker(stock), setup, bucket)
+            # it actually react, or since it was just moved, do we ignore?
+            for ticker_profile in bucket:
+                for setup in ticker_profile.setups:
+                    model = PositionModel(Ticker(ticker_profile), setup, bucket)
                     position = IPosition(model)
                     position.process()
                     if position.results.has_errors() == False:
-                        ActionHandler(position.action, self)
+                        ActionHandler(position, self).process()
 
     def buy(self, profile: ActionProfile):
         ...

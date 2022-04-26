@@ -1,4 +1,4 @@
-from stockbox.stockbox.services.ticker.indicator_lib import IndicatorLibrary
+from stockbox.stockbox.domain.indicators.indicator_lib import IndicatorLibrary
 from .. import ITicker
 from .fake_dataframe import fake_history, fake_current
 

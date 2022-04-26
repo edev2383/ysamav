@@ -3,7 +3,7 @@ from .dataframe_evaluator import DataFrameEvaluator
 from stockbox.stockbox.domain.rules.parser.token_category import TokenCategory
 from stockbox.stockbox.domain.rules.parser.token_type import TokenType
 from stockbox.stockbox.domain.rules.parser.tv_factory import TVFactory
-from stockbox.stockbox.services.ticker.i_ticker import ITicker
+from stockbox.stockbox.domain.ticker.i_ticker import ITicker
 from ..expr import Domain, DomainBinary, Expr, Binary, Literal, Unary, Grouping
 import pandas as pd
 

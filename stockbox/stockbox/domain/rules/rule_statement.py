@@ -9,12 +9,10 @@ class RuleStatement:
     parser to return an Expression that can be evaluated"""
 
     expression: AbstractExpr
-    scanner: StatementScanner
-    parser: Parser
-    evaluator: Evaluator
-    statement: str
 
     def __init__(self, statement: str):
+        self.expression = self._parse_statement(statement)
+
+    def _parse_statement(self, statement: str):
         scanner = StatementScanner(statement)
-        parser = Parser(scanner.scan_tokens())
-        self.expression = parser.parse()
+        return Parser(scanner.scan_tokens()).parse()
