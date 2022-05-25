@@ -51,7 +51,6 @@ class IScanner:
         for err in self.errors:
             print(f"Error: {err.message}")
 
-
 def case(char: str, type: TokenType):
     return char == type.value
 

@@ -69,8 +69,9 @@ class TokenType(Enum):
     YEAR = "year"
     YEARS = "years"
     AGO = "ago"
+
     # ==================================================================
-    # numeric words
+    # frequency words
     # ==================================================================
     WEEKLY = "weekly"
     MONTHLY = "monthly"
